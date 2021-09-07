@@ -1,0 +1,13 @@
+.nav-item {
+    .nav-link {
+        &.active {
+            color: red !important;
+        }
+    }
+}
+
+.flex-align {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}

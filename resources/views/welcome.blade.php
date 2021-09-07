@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-
+        <link href="{{ asset('css/app.css') }}" rel="stylesheet">
         <title>Laravel</title>
 
         <!-- Fonts -->
@@ -81,9 +81,10 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    Laravel
+                    Hello {{auth()->user()->name ?? ''}}, your email is: {{auth()->user()->id ?? ''}}
+                   {!!"<h1>test</h1>"!!}
+                   {!!"<script>alert('aa');</script>"!!}
                 </div>
-
                 <div class="links">
                     <a href="https://laravel.com/docs">Docs</a>
                     <a href="https://laracasts.com">Laracasts</a>
@@ -96,5 +97,6 @@
                 </div>
             </div>
         </div>
+        <script src="{{ asset('js/app.js') }}" defer></script>
     </body>
 </html>
