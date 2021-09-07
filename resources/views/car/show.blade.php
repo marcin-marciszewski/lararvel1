@@ -7,10 +7,16 @@
                 <div class="card-body">
                     <b>{{$car->name}}</b>
                     <p>{{$car->description}}</p>
+                    <div>
+                        @foreach($car->tags as $tag)
+                        <a href=""><span class="badge badge-{{$tag->style}}">{{$tag->name}}</span></a>
+                        @endforeach
+                    </div>
                 </div>
             </div>
             <div class="mt-2">
-                <a href="{{ url('/car') }}" class="btn btn-primary btn-sm"><i class="fas fa-plus-circle"> </i> Back to
+                <a href="{{ URL::previous() }}" class="btn btn-primary btn-sm"><i class="fas fa-plus-circle"> </i> Back
+                    to
                     the list</a>
             </div>
         </div>

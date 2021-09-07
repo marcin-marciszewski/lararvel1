@@ -11,7 +11,9 @@
                             <a alt="show details" href="/car/{{$car->id}}">
                                 <h4>{{$car->name}}</h4>
                             </a>
+                            <span>Owner: {{$car->user->name}} who owns {{$car->user->cars->count()}} cars</span>
                             <div class="flex-align">
+                                @auth
                                 <a class="btn btn-sm btn-success" alt="edit car" href="/car/{{$car->id}}/edit">
                                     Edit car
                                 </a>
@@ -20,16 +22,27 @@
                                     @method('DELETE')
                                     <input class="btn btn-sm btn-danger" type="submit" value="Delete Car" />
                                 </form>
+                                @endauth
+                                <span>{{ $car->created_at->diffForHumans() }}</span>
                             </div>
+                            <br>
+                            @foreach($car->tags as $tag)
+                            <a href=""><span class="badge badge-{{$tag->style}}">{{$tag->name}}</span></a>
+                            @endforeach
                         </li>
                         @endforeach
                     </ul>
                 </div>
             </div>
+            <div class="mt-3">
+                {{ $cars->links()}}
+            </div>
+            @auth
             <div class="mt-2">
                 <a href="{{ url('/car/create') }}" class="btn btn-success btn-sm"><i class="fas fa-plus-circle"> Add new
                         car</i></a>
             </div>
+            @endauth
         </div>
     </div>
 </div>

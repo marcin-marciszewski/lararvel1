@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 
 class CarController extends Controller
 {
+    public function __construct(){
+        $this->middleware('auth')->except(['index','show']);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +17,8 @@ class CarController extends Controller
      */
     public function index()
     {
-        $cars = Car::all();
+        // $cars = Car::all();
+        $cars = Car::orderBy('created_at','DESC')->paginate(10);
         
         return view('car.index')->with(['cars' =>  $cars]);
     }
@@ -44,6 +48,7 @@ class CarController extends Controller
         $new_car = new Car([
             'name' => $request->name,
             'description' => $request->description,
+            'user_id' => auth()->id()
         ]);
 
         $new_car->save();
