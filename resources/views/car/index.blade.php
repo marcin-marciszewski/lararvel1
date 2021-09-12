@@ -3,7 +3,11 @@
     <div class="row justify-content-center">
         <div class="col-md-11">
             <div class="card">
+                @isset($filter)
+                <div class="card-header">{{ __("List for " . $filter->name . " tag")}}</div>
+                @else
                 <div class="card-header">{{ __("List of cars") }}</div>
+                @endisset
                 <div class="card-body">
                     <ul class="list-group">
                         @foreach($cars as $car)
@@ -11,7 +15,8 @@
                             <a alt="show details" href="/car/{{$car->id}}">
                                 <h4>{{$car->name}}</h4>
                             </a>
-                            <span>Owner: {{$car->user->name}} who owns {{$car->user->cars->count()}} cars</span>
+                            <span>Owner: <a href="/user/{{$car->user->id}}">{{$car->user->name}}</a> who owns
+                                {{$car->user->cars->count()}} cars</span>
                             <div class="flex-align">
                                 @auth
                                 <a class="btn btn-sm btn-success" alt="edit car" href="/car/{{$car->id}}/edit">
@@ -27,7 +32,8 @@
                             </div>
                             <br>
                             @foreach($car->tags as $tag)
-                            <a href=""><span class="badge badge-{{$tag->style}}">{{$tag->name}}</span></a>
+                            <a href="/car/tag/{{$tag->id}}"><span
+                                    class="badge badge-{{$tag->style}}">{{$tag->name}}</span></a>
                             @endforeach
                         </li>
                         @endforeach

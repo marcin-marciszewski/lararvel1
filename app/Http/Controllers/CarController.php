@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Car;
+use App\Tag;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
+
 
 class CarController extends Controller
 {
@@ -53,7 +56,7 @@ class CarController extends Controller
 
         $new_car->save();
 
-        return redirect()->route('car.index')->with( ['message_success' => "The car <b>" . $new_car->name . "</b> was created."] );
+        return redirect('/car/' . $new_car->id)->with( ['message_success' => "The car <b>" . $new_car->name . "</b> was created.", 'message_warning' => "Please assign some tags."] );
  
     }
 
@@ -65,8 +68,13 @@ class CarController extends Controller
      */
     public function show(Car $car)
     {
+        $allTags = Tag::all();
+        $usedTags = $car->tags;
+        $availableTags = $allTags->diff($usedTags);
         return view('car.show')->with([
-            'car' => $car
+            'car' => $car,
+            'availableTags' => $availableTags,
+            'message_success' => Session::get('message_success')
         ]);
     }
 

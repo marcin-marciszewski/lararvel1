@@ -18,6 +18,8 @@
                                     @method('DELETE')
                                     <input class="btn btn-sm btn-danger" type="submit" value="Delete tag" />
                                 </form>
+                                <a href="/car/tag/{{$tag->id}}" class="float-right">Used {{$tag->cars->count()}}
+                                    times</a>
                             </div>
                         </li>
                         @endforeach
